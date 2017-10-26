@@ -1,0 +1,50 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+  <header class = "header">
+      <h2>Edit Company - {{account.company}}</h2>
+  </header>
+
+  <main class = "container">
+      <form action="{{ url_for('editAccount',account_id = account.id)}}" method = "POST">
+          <aside class="pull-left col-md-3">
+              <div class="form-group form-inline">
+                  <label for="company" class="control-label">Company:</label>
+                  <input type="text" class="form-control" size="30" id="company" name="company" value="{{account.company}}">
+              </div>
+              <br>
+              <div class="form-group form-inline">
+                  <label for="address" class="control-label">Address:</label>
+                  <input type="text" class="form-control" size="30" id="address" name="address" value="{{account.address}}">
+              </div>
+              <div class="form-group form-inline">
+                  <label for="city" class="control-label">City:</label>
+                  <input type="text" class="form-control" size="30" id="city" name="city" value="{{account.city}}">
+              </div>
+              <div class="form-group form-inline">
+                  <label for="state" class="control-label">State:</label>
+                  <input type="text" class="form-control" size="2" id="state" name="state" value="{{account.state}}">
+                  <label for="zipcode" class="control-label">Zip:</label>
+                  <input type="text" class="form-control" size="5" id="zipcode" name="zipcode" value="{{account.zipcode}}">
+              </div>
+              <div class="form-group form-inline">
+                  <label for="tel" class="control-label">Tel:</label>
+                  <input type="text" class="form-control" size="10" id="tel" name="tel" value="{{account.tel}}">
+              </div>
+              <div class="form-group form-inline">
+                  <label for="fax" class="control-label">Fax:</label>
+                  <input type="text" class="form-control" size="10" id="fax" name="fax" value="{{account.fax}}">
+             </div>
+             <br>
+             <div class="form-group left">
+                 <input type ="submit" value = "Edit">
+                 <a href = "{{ url_for('showAccounts')}}"> Cancel</a>
+             </div>
+          </aside>
+
+
+        </p>
+      </form>
+  </main>
+
+{% endblock %}

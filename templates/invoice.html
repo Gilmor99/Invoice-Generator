@@ -1,0 +1,57 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+    <header class = "header">
+      <h1>comany - {{account.company}}</h1>
+      <a href = "{{url_for('newInvoice', account_id = account.id) }}">Create New Invoice</a>
+    </header>
+    <main class="container">
+      <div class = "flash">
+          {% with messages = get_flashed_messages() %}
+           {% if messages %}
+             <ul>
+                {% for message in messages %}
+                  <li> <strong> {{ message }} </strong> </li>
+                {% endfor %}
+            </ul>
+           {% endif %}
+          {% endwith %}
+      </div>
+      <div class="title">
+          {% if invoices.count() %}
+      		<h3>Available Invoices</h3>
+             <table id="invoicesTable" class="table table-responsive table-center" >
+              <thead>
+                  <tr>
+                    <th> Invoice # </th>
+                    <th> Date </th>
+                    <th> Bill To </th>
+                    <th> Total </th>
+                    <th> Amount Paid </th>
+                    <th> Balance Owed </th>
+                    <th> Due Date </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in invoices %}
+                  <tr>
+                    <td>{{item.number}}</td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.billTo}}</td>
+                    <td>{{item.total}}</td>
+                    <td>{{item.amountPaid}}</td>
+                    <td>{{item.balanceDue}}</td>
+                    <td>{{item.dueDate}}</td>
+                    <td>
+                        <a href="{{url_for('editInvoice',account_id = account.id, invoice_id=item.id)}}">Edit</a>
+                        <label> / </label>
+          	        	<a href="{{url_for('deleteInvoice', account_id = account.id, invoice_id =item.id)}}">Delete</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+             </tbody>
+         </table>
+      </main>
+     {% endif %}
+ {% endblock %}

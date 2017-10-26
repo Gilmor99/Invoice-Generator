@@ -1,0 +1,161 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<div class = "header">
+		 <h1> Firm - {{account.company}} </h1>
+		 <h2> New Invoice Details </h2>
+	</div>
+
+    <main class = "container">
+        <form action="{{url_for('newInvoice', account_id=account.id)}}" method="POST" class="form-horizontal">
+            <aside class="pull-left col-md-3">
+             <div class="form-group form-inline">
+               <label for="fromName" class="control-label">Sender Name:</label>
+               <input type="text" class="form-control" size="30" id="fromName" name="fromName">
+            </div>
+            <fieldset disabled>
+                <div class="form-group form-inline">
+                    <label for="address" class="control-label">Address:</label>
+                    <input type="readonly" class="form-control" size="30" id="address" name="address" value="{{account.address}}">
+                    <input type="readonly" class="form-control" size="30" id="city" name="city" value="{{account.city}}">
+                    <input type="readonly" class="form-control" size="2" id="state" name="state" value="{{account.state}}">
+                    <input type="readonly" class="form-control" size="5" id="zipcode" name="zipcode" value="{{account.zipcode}}">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="tel" class="control-label">Tel:</label>
+                    <input type="readonly" class="form-control" size="10" id="tel" name="tel" value="{{account.tel}}">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="fax" class="control-label">Fax:</label>
+                    <input type="readonly" class="form-control" size="10" id="fax" name="fax" value="{{account.fax}}">
+               </div>
+           </fieldset>
+
+         </aside>
+            <div class="col-md-3">
+                <div class="form-group form-inline">
+                  <label for="billTo" class="control-label">Bill To:</label>
+                  <input type="text" class="form-control" size="30" id="billTo" name="billTo">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="toAddress" class="control-label">Address:</label>
+                    <input type="readonly" class="form-control" size="30" id="toAddress" name="toAddress">
+                    <input type="readonly" class="form-control" size="30" id="toCity" name="toCity">
+                    <input type="readonly" class="form-control" size="2" id="toState" name="toState">
+                    <input type="readonly" class="form-control" size="5" id="toZipcode" name="toZipcode">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="toTel" class="control-label">Tel:</label>
+                    <input type="readonly" class="form-control" size="10" id="toTel" name="toTel">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="toFax" class="control-label">Fax:</label>
+                    <input type="readonly" class="form-control" size="10" id="toFax" name="toFax">
+               </div>
+            </div>
+            <aside class="pull-right right col-md-3">
+              <div class="form-group form-inline">
+                 <label for="number" class="control-label">Invoice # </label>
+                 <input type="text" class="form-control right" size="10" id="number" name="number">
+              </div>
+              <div class="form-group form-inline">
+                 <label for="date" class="control-label">Date</label>
+                 <input type="text" class="form-control right date" size="10" id="date" name="date">
+              </div>
+              <div class="form-group form-inline">
+                 <label for="paymentTerms" class="control-label">Payment Terms</label>
+                 <input type="text" class="form-control right" size="10" name="paymentTerms">
+              </div>
+              <div class="form-group form-inline">
+                 <label for="dueDate" class="control-label">Due Date</label>
+                 <input type="text" class="form-control right date" size="10" id="dueDate" name="dueDate">
+              </div>
+              <div class="form-group form-inline">
+                 <label for="balanceDue" class="control-label">Balance Due $</label>
+                 <input type="readonly" class="form-control right" size="10" name="balanceDue" id="balanceDue">
+             </div>
+         </aside>
+
+            <table id="lineItemsTable" class="table table-responsive table-center" >
+                <thead>
+                    <tr>
+                      <th> Item </th>
+                      <th> Quantity </th>
+                      <th> Rate </th>
+                      <th class="pull-right right"> Amount </th>
+                  </tr>
+              </thead>
+              <tfoot>
+                      <tr>
+                          <td>
+                              <button type="button" onclick="addTableRow()">+</button>
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <div class="form-group form-inline">
+                               <label for="subTotal" class="control-label">Sub Total $</label>
+                               <input type="text" class="subTotal form-control right" size="10" name="subTotal" id="subTotal">
+                           </div>
+                          </td>
+                    </tr>
+                </tfoot>
+              <tbody>
+                    <tr>
+                      <td><input type="text" size="20" class="form-control" name="description" id="description"></td>
+                      <td><input type="text" size="20" class="form-control" name="quantity" id="quantity"></td>
+                      <td><input type="text" size="20" class="form-control" name="rate" id="rate"></td>
+                      <td><input type="text" size="20" class="form-control right" name="amount" id="amount"></td>
+                    </tr>
+               </tbody>
+           </table>
+
+           <aside class="pull-right right col-md-3">
+              <div class="form-group form-inline" id="discounts">
+                 <label for="discount" class="control-label">Discount</label>
+                 <input type="text" class="form-control right" size="10" name="discount" id="discount">
+                 <select id="discountFlag" name="discountFlag">
+       		       <option value="P" >%</option>
+       		       <option value="D">$</option>
+                </select>
+                <input type="hidden" class="form-control right" size="10" name="totalDiscount" id="totalDiscount">
+            </div>
+              <div class="form-group form-inline" id="taxes">
+                 <label for="tax" class="control-label">Tax</label>
+                 <input type="text" size="10" class="form-control right" name="tax" id="tax">
+                 <select id="taxFlag" name="taxFlag">
+      		       <option value="P">%</option>
+      		       <option value="D">$</option>
+                </select>
+                <input type="hidden" size="10"  class="form-control right" name="totalTax" id="totalTax">
+            </div>
+
+            <div class="form-group form-inline">
+              <label for="shipping" class="control-label">Shipping $</label>
+              <input type="text" size="10" name="shipping" id="shipping" class="form-control right">
+            </div>
+            <div class="form-group form-inline">
+               <label for="total" class="control-label">Total $</label>
+               <input type="text" size="10" name="total" id="total" class="form-control right">
+            </div>
+            <div class="form-group form-inline">
+                <label for="amountPaid" class="control-label">Amount Paid $</label>
+                <input type="text" size="10" name="amountPaid" id="amountPaid" class="form-control right">
+            </div>
+          </aside>
+          <div class="form-group left">
+              <input type="submit" value="Create">
+    		  <a href = "{{url_for('accountInvoices', account_id=account.id)}}"> Cancel </a>
+          </div>
+        </form>
+    </main>
+
+     <script>
+     $('#lineItemsTable').change(tableTotals).change(totals);
+     $('#subTotal').change(totals);
+     $('#discount, #discountFlag, #subTotal').change(totalDiscounts).change(totals);
+     $('#tax, #taxFlag, #subTotal').change(totalTaxes).change(totals);
+     $('#shipping, #amountPaid').change(totals);
+     </script>
+ {% endblock %}

@@ -1,0 +1,40 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+     <header class="header">
+         <h1> Firm - {{account.company}}</h1>
+         <h2>Are you sure you wnat to delete invoice # {{invoice.number}}?</h2>
+     </header
+     <main class="container">
+         <table id="invoicesTable" class="table table-responsive table-center" >
+          <thead>
+              <tr>
+                <th> Invoice # </th>
+                <th> Date </th>
+                <th> Bill To </th>
+                <th> Total </th>
+                <th> Amount Paid </th>
+                <th> Balance Owed </th>
+                <th> Due Date </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+              <tr>
+                <td>{{invoice.number}}</td>
+                <td>{{invoice.date}}</td>
+                <td>{{invoice.billTo}}</td>
+                <td>{{invoice.total}}</td>
+                <td>{{invoice.amountPaid}}</td>
+                <td>{{invoice.balanceDue}}</td>
+                <td>{{invoice.dueDate}}</td>
+              </tr>
+         </tbody>
+     </table>
+
+         <form action="{{ url_for('deleteInvoice', account_id = account.id, invoice_id=invoice.id)}}" method = "post">
+           <input type ="submit" value = "Delete" >
+           <a href = "{{url_for('accountInvoices', account_id = account.id)}}"> Cancel </a>
+         </form>
+     </main>
+{% endblock %}

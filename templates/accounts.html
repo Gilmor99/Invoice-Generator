@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+  <header class = "header">
+    <h1>Companies</h1>
+    <a href = "{{url_for('newAccount')}}"> Create New Account </a>
+</header>
+
+  <div class = "flash">
+
+      {% with messages = get_flashed_messages() %}
+     {% if messages %}
+
+       <ul>
+          {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+          {% endfor %}
+      </ul>
+     {% endif %}
+    {% endwith %}
+  </div>
+
+  <main class = "container">
+      <aside class="pull-left col-md-3">
+          {% for i in accounts %}
+            <div class="list-group">
+                <h1 class="list-group-item-heading"> <strong>
+                    <a href="{{url_for('accountInvoices', account_id=i.id)}}">
+                         {{i.company}}</a></strong>
+                </h1>
+                <p class="list-group-item-text">
+                    <a href="{{url_for('editAccount', account_id=i.id)}}">
+                         Edit </a>
+                    <a href="{{url_for('deleteAccount', account_id=i.id)}}">
+                        Delete </a>
+                </p>
+           </div>
+  	     {% endfor %}
+     </aside>
+</main>
+{% endblock %}
