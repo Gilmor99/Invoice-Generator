@@ -58,7 +58,7 @@ class Invoice(Base):
     balanceDue = Column(Integer)
     subTotal = Column(Integer)
     taxFlag = Column(String(1))
-    tax = Column(Integer(8))
+    tax = Column(Integer)
     discountFlag = Column(String(1))
     discount = Column(Integer)
     shipping = Column(Integer)
