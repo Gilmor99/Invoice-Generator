@@ -5,7 +5,7 @@ Project Title - Invoice Genertaion
 
 Getting Started -
 
-    Using your browser's address bar, point to the project index.html file.
+    Using your browser's address bar, point to the address @ http://52.42.97.248/accounts.
 
 How to use the application -
     1. Create Account
@@ -29,7 +29,7 @@ Built With -
     Python 2.7
     Flask
     SQL Alchemy ORM
-    SQLLITE
+    PostgreSQL
     JQuery
     Bootstrap
     CSS
