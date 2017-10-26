@@ -14,7 +14,8 @@ app.debug = True
 app.secret_key = 'super_secret_key'
 
 
-engine = create_engine('sqlite:///invoices.db')
+# engine = create_engine('sqlite:///invoices.db')
+engine = engine = create_engine('postgresql://invoice:invoice@localhost/invoice')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)

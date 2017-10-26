@@ -115,6 +115,7 @@ class InvoiceLine(Base):
 # Create the DB ################
 
 
-engine = create_engine('sqlite:///invoices.db')
+# engine = create_engine('sqlite:///invoices.db')
+engine = engine = create_engine('postgresql://invoice:invoice@localhost/invoice')
 
 Base.metadata.create_all(engine)
