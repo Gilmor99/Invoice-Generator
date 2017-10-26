@@ -2,7 +2,7 @@
 import os
 import sys
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Date, Boolean
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, Boolean, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -55,15 +55,15 @@ class Invoice(Base):
     date = Column(String(8))
     paymentTerms = Column(String(6))
     dueDate = Column(String(8))
-    balanceDue = Column(Integer)
-    subTotal = Column(Integer)
+    balanceDue = Column(String(10))
+    subTotal = Column(String(10))
     taxFlag = Column(String(1))
-    tax = Column(Integer)
+    tax = Column(String(10))
     discountFlag = Column(String(1))
-    discount = Column(Integer)
-    shipping = Column(Integer)
-    total = Column(Integer)
-    amountPaid = Column(Integer)
+    discount = Column(String(10))
+    shipping = Column(String(10))
+    total = Column(String(10))
+    amountPaid = Column(String(10))
     account_id = Column(Integer, ForeignKey('account.id'))
     company = relationship(Account)
     toAddress = Column(String(80))
@@ -96,8 +96,8 @@ class InvoiceLine(Base):
     id = Column(Integer, primary_key=True)
     description = Column(String(80), nullable=False)
     quantity = Column(Integer)
-    rate = Column(Integer)
-    amount = Column(Integer)
+    rate = Column(String(10))
+    amount = Column(String(10))
     invoice_id = Column(Integer, ForeignKey('invoice.id'))
     account_id = Column(Integer, ForeignKey('account.id'))
 
