@@ -39,7 +39,7 @@ class Account(Base):
             'zipcode': self.zipcode,
             'tel': self.tel,
             'fax': self.fax,
-            'id': self.id,
+            'id': self.id
         }
 
 
@@ -55,15 +55,15 @@ class Invoice(Base):
     date = Column(String(8))
     paymentTerms = Column(String(6))
     dueDate = Column(String(8))
-    balanceDue = Column(Integer(8))
-    subTotal = Column(Integer(8))
+    balanceDue = Column(Integer)
+    subTotal = Column(Integer)
     taxFlag = Column(String(1))
     tax = Column(Integer(8))
     discountFlag = Column(String(1))
-    discount = Column(Integer(8))
-    shipping = Column(Integer(8))
-    total = Column(Integer(8))
-    amountPaid = Column(Integer(8))
+    discount = Column(Integer)
+    shipping = Column(Integer)
+    total = Column(Integer)
+    amountPaid = Column(Integer)
     account_id = Column(Integer, ForeignKey('account.id'))
     company = relationship(Account)
     toAddress = Column(String(80))
@@ -84,7 +84,7 @@ class Invoice(Base):
             'date': self.date,
             'total': self.total,
             'amountPaid': self.amountPaid,
-            'balanceDue': self.balanceDue,
+            'balanceDue': self.balanceDue
         }
 
 
@@ -95,9 +95,9 @@ class InvoiceLine(Base):
     #  Columns ####
     id = Column(Integer, primary_key=True)
     description = Column(String(80), nullable=False)
-    quantity = Column(Integer(8))
-    rate = Column(Integer(8))
-    amount = Column(Integer(8))
+    quantity = Column(Integer)
+    rate = Column(Integer)
+    amount = Column(Integer)
     invoice_id = Column(Integer, ForeignKey('invoice.id'))
     account_id = Column(Integer, ForeignKey('account.id'))
 
