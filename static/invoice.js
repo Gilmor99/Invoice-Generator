@@ -1,4 +1,5 @@
 function addTableRow() {
+    // function to add new line items row to the invoice
     var table = document.getElementById("lineItemsTable");
     var row = table.insertRow(1);
     var description = row.insertCell(0);
@@ -12,6 +13,7 @@ function addTableRow() {
 
 }
 function addInput(elm, name) {
+    // function to append the new row to the line items table
     var input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('size', '10');
@@ -26,11 +28,9 @@ function addInput(elm, name) {
     elm.appendChild(input);
 }
 
-function setSelectValue (id, val) {
-    document.getElementById(id).value = val;
-}
 
 function tableTotals() {
+    // JQUERY function to calculate the each line items amoun and sub-total
     $('#amount, #subTotal').prop('readonly', true);
     var $tblrows = $('#lineItemsTable tbody tr');
     var grandTotal = 0;
@@ -49,6 +49,7 @@ function tableTotals() {
 }
 
 function totalDiscounts() {
+    // JQUERY function to calculate the total discount amount within the invoice
     $('#totalDiscount').prop('readonly', true);
     var tDiscount = $("#totalDiscount").val();
     var dis = isNaN($('#discount').val()) ? 0 : $('#discount').val();
@@ -64,6 +65,7 @@ function totalDiscounts() {
 }
 
 function totalTaxes() {
+    // JQUERY function to calculate the total Tax amount within the invoice
     $('#totalTax').prop('readonly', true);
     var tTax = $("#totalTax").val();
     var t = isNaN($('#tax').val()) ? 0 : $('#tax').val();
@@ -79,6 +81,7 @@ function totalTaxes() {
 }
 
 function totals() {
+    // JQUERY function to calculate the totals of the invoice
     $('#total, #balanceDue').prop('readonly', true);
     var tax = parseInt($('#totalTax').val(), 10) || 0;
     var dis = parseInt($('#totalDiscount').val(), 10) || 0;
@@ -96,6 +99,8 @@ function totals() {
 }
 
 function setFlag() {
+    // JQUERY function to set the right chosice of either
+    // precentage or flat rate for both the Discount and Tax amounts
     var dFlag = '{{invoice.discountFlag}}';
      if ( dFlag === 'D') {
          document.getElementById('discountFlag').value = 'D';
